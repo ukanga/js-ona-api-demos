@@ -1,0 +1,21 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <h2>JQuery $.ajax xhr request</h2>
+        <h6>Formhub Response:</h6>
+        <pre id="fhdata"></pre>
+        <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script type="text/javascript">
+            $.ajax(
+                    {
+                        url: 'https://formhub.org/api/v1/users',
+                        beforeSend: function(xhr){xhr.setRequestHeader("Authorization", "Basic " + btoa('USERNAME:PASSWORD'))}
+                    }).done(function (data) {
+                        $("#fhdata").html(JSON.stringify(data, null, " "))
+                    }).error(function (error) {
+                        $("#fhdata").html(JSON.stringify(error, null, " "))
+                    });
+        </script>
+    </head>
+</html>
