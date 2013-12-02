@@ -1,21 +1,56 @@
 <html>
     <head>
+        <title>FH API Tester: JQuery</title>
+        <style type="text/css">
+            #api_url, #token{
+                width: 560px;
+            }
+        </style>
     </head>
     <body>
-        <h2>JQuery $.ajax xhr request</h2>
-        <h6>Formhub Response:</h6>
+        <form name="apiform" action="" method="post">
+            <div>
+                <input type="text" name="token" id="token" />
+                <br />
+                <input type="text" name="api_url" id="api_url" autocomplete="off" placeholder="https://formhub.org/api/v1/forms" />
+                <button type="button" name="fetchBtn" id="fetchBtn">Fetch</button>
+            </div>
+        </form>
+        <h6>Server Response:</h6>
         <pre id="fhdata"></pre>
         <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
         <script type="text/javascript">
-            $.ajax(
-                    {
-                        url: 'https://formhub.org/api/v1/users',
-                        beforeSend: function(xhr){xhr.setRequestHeader("Authorization", "Basic " + btoa('USERNAME:PASSWORD'))}
-                    }).done(function (data) {
-                        $("#fhdata").html(JSON.stringify(data, null, " "))
-                    }).error(function (error) {
-                        $("#fhdata").html(JSON.stringify(error, null, " "))
+            $(document).ready(function(){
+                    $("form[name=apiform]").submit(function(evt){
+                        evt.preventDefault();
+                        apiWork();
                     });
+                    $("#fetchBtn").click(function(evt){
+                        evt.preventDefault();
+                        apiWork();
+                    });
+
+            });
+
+            function apiWork(){
+                var token = $('#token').val()
+                    , url = $('#api_url').val();
+                if (token != '' && url != ''){
+                    fetchApiData(url, token);
+                }
+            }
+
+            function fetchApiData(url, token){
+                $.ajax(
+                        {
+                            url: url,
+                            beforeSend: function(xhr){xhr.setRequestHeader("Authorization", "Token " + token)}
+                        }).done(function (data) {
+                            $("#fhdata").html(JSON.stringify(data, null, " "))
+                        }).error(function (error) {
+                            $("#fhdata").html(JSON.stringify(error, null, " "))
+                        });
+            }
         </script>
     </head>
 </html>
