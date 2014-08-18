@@ -1,4 +1,4 @@
-## XHR Test Formhub api
+## XHR Test Ona api
 
-- Replace USERNAME, PASSWORD with your formhub username and password
-- Change url to appropriate formhub api url you want to test for GET requests.
+- Use your Ona.io api token [https://ona.io/{USERNAME}/api-token]
+- Change url to appropriate ona.io api url you want to test for GET requests.

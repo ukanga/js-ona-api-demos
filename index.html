@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>FH API Tester: JQuery</title>
+        <title>Ona API Tester: JQuery</title>
         <style type="text/css">
             #api_url, #token{
                 width: 560px;
@@ -10,10 +10,19 @@
     <body>
         <form name="apiform" action="" method="post">
             <div>
-                <input type="text" name="token" id="token" />
-                <br />
-                <input type="text" name="api_url" id="api_url" autocomplete="off" placeholder="https://formhub.org/api/v1/forms" />
-                <button type="button" name="fetchBtn" id="fetchBtn">Fetch</button>
+                <table>
+                    <tr>
+                        <td>API Token: </td>
+                        <td><input type="text" name="token" id="token" /></td>
+                    </tr>
+                    <tr>
+                        <td>API URL Endpoint: </td>
+                        <td>
+                            <input type="text" name="api_url" id="api_url" autocomplete="off" placeholder="https://ona.io/api/v1/forms" value="https://ona.io/api/v1/forms" />
+                            <button type="button" name="fetchBtn" id="fetchBtn">Fetch</button>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </form>
         <h6>Server Response:</h6>
