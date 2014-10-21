@@ -12,13 +12,16 @@
             <div>
                 <table>
                     <tr>
-                        <td>API Token: </td>
-                        <td><input type="text" name="token" id="token" /></td>
+                        <td>Username & Password: </td>
+                        <td>
+                            <input type="text" name="username" id="username" autocomplete="off" placeholder="Your Ona Username" />
+                            <input type="password" name="password" id="password" autocomplete="off" placeholder="Your Ona Password" />
+                        </td>
                     </tr>
                     <tr>
                         <td>API URL Endpoint: </td>
                         <td>
-                            <input type="text" name="api_url" id="api_url" autocomplete="off" placeholder="https://ona.io/api/v1/forms" value="https://ona.io/api/v1/forms" />
+                            <input type="text" name="api_url" id="api_url" placeholder="https://ona.io/api/v1/forms" value="https://ona.io/api/v1/forms" />
                             <button type="button" name="fetchBtn" id="fetchBtn">Fetch</button>
                         </td>
                     </tr>
@@ -28,6 +31,7 @@
         <h6>Server Response:</h6>
         <pre id="fhdata"></pre>
         <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script src="/digest-ajax-no-md5.js"></script>
         <script type="text/javascript">
             $(document).ready(function(){
                     $("form[name=apiform]").submit(function(evt){
@@ -42,18 +46,21 @@
             });
 
             function apiWork(){
-                var token = $('#token').val()
+                var username = $('#username').val()
+                    , password = $('#password').val()
                     , url = $('#api_url').val();
-                if (token != '' && url != ''){
-                    fetchApiData(url, token);
+                if (username != '' && url != ''){
+                    fetchApiData(url, username, password);
                 }
             }
 
-            function fetchApiData(url, token){
-                $.ajax(
+            function fetchApiData(url, username, password){
+                $.ajaxDigest(
                         {
                             url: url,
-                            beforeSend: function(xhr){xhr.setRequestHeader("Authorization", "Token " + token)}
+                            username: username,
+                            password: password
+
                         }).done(function (data) {
                             $("#fhdata").html(JSON.stringify(data, null, " "))
                         }).error(function (error) {
